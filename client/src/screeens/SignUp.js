@@ -1,25 +1,22 @@
-import React from 'react'
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function SignUp() {
   const [credentials, setCredentials] = useState({
+    name: "",
     email: "",
-    password: ""
-
+    password: "",
+    geolocation: "",
   });
-
-
-  let navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:8000/api/loginuser", {
+    const response = await fetch("http://localhost:8000/api/createuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: credentials.email, password: credentials.password }),
+      body: JSON.stringify({ name: credentials.name, email: credentials.email, password: credentials.password, location: credentials.geolocation }),
     });
 
     const json = await response.json();
@@ -28,16 +25,6 @@ export default function Login() {
     if (!json.success) {
       alert("Enter Valid Credentials")
     }
-
-    if (json.success) {
-
-      localStorage.setItem("authToken",json.authToken)
-      navigate("/")
-      // console.log( localStorage.setItem("authToken"))
-
-    }
-
-
   };
 
   const onChange = (event) => {
@@ -45,10 +32,19 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <>
       <div className="container">
         <form onSubmit={handleSubmit}>
-
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              className="form-control"
+              name="name"
+              value={credentials.name}
+              onChange={onChange}
+            />
+          </div>
 
           <div className="form-group">
             <label htmlFor="exampleInputEmail1">Email address</label>
@@ -78,14 +74,27 @@ export default function Login() {
               onChange={onChange}
             />
           </div>
+          <div className="form-group">
+            <label htmlFor="exampleInputAddress">Address</label>
+            <input
+              type="text"
+              className="form-control"
+              id="exampleInputAddress"
+              placeholder="Address"
+              name="geolocation"
+              value={credentials.geolocation}
+              onChange={onChange}
+            />
+          </div>
+
           <button type="submit" className=" m-3 btn btn-success">
             Submit
           </button>
         </form>
-        <Link to="/createuser" className="m-3 btn btn-success">
-          I'm a New User
+        <Link to="/login" className="m-3 btn btn-success">
+          Already a User?
         </Link>
       </div>
-    </div>
-  )
+    </>
+  );
 }

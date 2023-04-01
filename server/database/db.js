@@ -6,15 +6,16 @@ const Connection = async () => {
         await mongoose.connect(URL, { useUnifiedTopology: true, useNewUrlParser: true });
         console.log("Connected To Database Successfully");
 
-        const fetchedData = await mongoose.connection.db.collection("food_items").find({}).toArray();
-        // console.log("Fetched Data: ", fetchedData);
-        
-        // Return the fetched data or pass it to a callback
-        return fetchedData;
+        const data = await mongoose.connection.db.collection("food_items").find({}).toArray();
+        global.food_items = data;
+
+        const foodCategory = await mongoose.connection.db.collection("foodCategory").find({}).toArray();
+        global.foodCategory = foodCategory;
+
+        return data;
     }
     catch (error) {
         console.log("Error While Connecting to Database", error.message);
-        // Handle the error appropriately
     }
 };
 
