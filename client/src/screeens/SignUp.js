@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 export default function SignUp() {
   const [credentials, setCredentials] = useState({
@@ -33,16 +34,19 @@ export default function SignUp() {
 
   return (
     <>
-      <div className="container">
-        <form onSubmit={handleSubmit}>
+      <NavBar />
+      <div className='container d-flex justify-content-center align-items-center'>
+        <form onSubmit={handleSubmit} >
           <div className="form-group">
             <label htmlFor="name">Name</label>
             <input
               type="text"
               className="form-control"
               name="name"
+              placeholder="Enter Your Name"
               value={credentials.name}
               onChange={onChange}
+              style={{ width: "400px" }}
             />
           </div>
 
@@ -57,6 +61,7 @@ export default function SignUp() {
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="Enter email"
+              style={{ width: "400px" }}
             />
             <small id="emailHelp" className="form-text text-muted">
               We'll never share your email with anyone else.
@@ -72,9 +77,10 @@ export default function SignUp() {
               name="password"
               value={credentials.password}
               onChange={onChange}
+              style={{ width: "400px" }}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group" style={{ marginBottom: "10px" }}>
             <label htmlFor="exampleInputAddress">Address</label>
             <input
               type="text"
@@ -84,16 +90,20 @@ export default function SignUp() {
               name="geolocation"
               value={credentials.geolocation}
               onChange={onChange}
+              style={{ width: "400px" }}
             />
           </div>
 
-          <button type="submit" className=" m-3 btn btn-success">
-            Submit
-          </button>
+          <div className="d-flex justify-content-start align-items-center" style={{ marginTop: "15px" }}>
+            <button type="submit" className="btn btn-danger">
+              Submit
+            </button>
+            <Link to="/login" className="btn btn-danger" style={{ marginLeft: "10px" }}>
+              Already a User?
+            </Link>
+          </div>
+
         </form>
-        <Link to="/login" className="m-3 btn btn-success">
-          Already a User?
-        </Link>
       </div>
     </>
   );
