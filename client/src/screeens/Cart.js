@@ -1,10 +1,12 @@
 import { FaTrash } from 'react-icons/fa';
-import React from 'react';
+import React, { useState } from 'react';
 import { useCart, useDispatchCart } from '../components/ContextReducer';
+import StripeCheckout from 'react-stripe-checkout';
 
 export default function Cart() {
   let data = useCart();
   let dispatch = useDispatchCart();
+  const [stripeToken, setStripeToken] = useState(null);
 
   if (data.length === 0) {
     return (
@@ -14,7 +16,7 @@ export default function Cart() {
     )
   }
 
-  const handleCheckOut = async () => {
+  const handleCheckOut = async (token) => {
     let userEmail = localStorage.getItem("userEmail");
     let response = await fetch("http://localhost:8000/api/orderData", {
       method: 'POST',
@@ -24,13 +26,15 @@ export default function Cart() {
       body: JSON.stringify({
         order_data: data,
         email: userEmail,
-        order_date: new Date().toDateString()
+        order_date: new Date().toDateString(),
+        token: token
       })
     });
 
     console.log("Order Response : ",response)
     if (response.status === 200) {
       dispatch({ type: "DROP" })
+      setStripeToken(token);
     }
   }
 
@@ -67,7 +71,23 @@ export default function Cart() {
         </table>
         <div><h1 className='fs-2' style={{ color: 'white' }}>Total Price: {totalPrice}/-</h1></div>
         <div>
-          <button className='btn bg-success mt-5' onClick={handleCheckOut}>Check Out</button>
+          {stripeToken ? (
+            <div className="text-success fs-4">Payment Successful!</div>
+          ) : (
+            <StripeCheckout
+              stripeKey="pk_test_51MsipeSEMRCrNiynwn0YwN0SIUuhKR7ERC98grVOFQKE1rPqdTijsQjystU34OaFbajOKJsQj8Jh2qXdTytHSmKr00CbromXsG"
+              token={handleCheckOut}
+              amount={totalPrice * 100}
+              currency="INR"
+              name="Food Ordering App"
+              email={localStorage.getItem("userEmail")}
+              billingAddress
+              shippingAddress
+              zipCode
+            >
+              <button className='btn bg-success mt-5'>Check Out</button>
+            </StripeCheckout>
+          )}
         </div>
       </div>
     </div>
