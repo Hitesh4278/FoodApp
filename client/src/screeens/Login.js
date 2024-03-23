@@ -1,8 +1,6 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
-
 
 export default function Login() {
   const [credentials, setCredentials] = useState({
@@ -10,7 +8,7 @@ export default function Login() {
     password: '',
   });
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,36 +17,27 @@ export default function Login() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        email: credentials.email,
-        password: credentials.password,
-      }),
+      body: JSON.stringify(credentials),
     });
 
     const json = await response.json();
-    console.log(json);
-
     if (!json.success) {
-      alert('Enter Valid Credentials');
-    }
-
-    if (json.success) {
+      alert('Invalid credentials. Please try again.');
+    } else {
       localStorage.setItem('userEmail', credentials.email);
       localStorage.setItem('authToken', json.authToken);
       navigate('/');
-      // console.log( localStorage.setItem("authToken"))
     }
   };
 
-  const onChange = (event) => {
+  const handleChange = (e) => {
     setCredentials({
       ...credentials,
-      [event.target.name]: event.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
   return (
-    
     <div>
       <NavBar />
       <div className='container d-flex justify-content-center align-items-center'>
@@ -57,40 +46,37 @@ export default function Login() {
           style={{ maxWidth: '400px', width: '100%' }}
         >
           <div className='form-group'>
-            <label htmlFor='exampleInputEmail1'>Email address</label>
+            <label htmlFor='email'>Email address</label>
             <input
               type='email'
               className='form-control'
+              id='email'
               name='email'
               value={credentials.email}
-              onChange={onChange}
-              id='exampleInputEmail1'
-              aria-describedby='emailHelp'
+              onChange={handleChange}
               placeholder='Enter email'
-              style={{ height: '40px', fontSize: '16px' }}
             />
             <small id='emailHelp' className='form-text text-muted'>
               We'll never share your email with anyone else.
             </small>
           </div>
-          <div className='form-group' style={{ marginBottom: '1px' }}>
-            <label htmlFor='exampleInputPassword1'>Password</label>
+          <div className='form-group'>
+            <label htmlFor='password'>Password</label>
             <input
               type='password'
               className='form-control'
-              id='exampleInputPassword1'
-              placeholder='Password'
+              id='password'
               name='password'
               value={credentials.password}
-              onChange={onChange}
-              style={{ height: '40px', fontSize: '16px' }}
+              onChange={handleChange}
+              placeholder='Password'
             />
           </div>
-          <button type='submit' className='m-3 btn btn-danger'>
+          <button type='submit' className='btn btn-danger'>
             Submit
           </button>
-          <Link to='/createuser' className='m-3 btn btn-danger'>
-            I'm a New User
+          <Link to='/createuser' className='btn btn-danger mx-2'>
+            New User? Create an account
           </Link>
         </form>
       </div>

@@ -1,22 +1,24 @@
 const mongoose = require('mongoose');
-const URL = `mongodb+srv://hitesh:12345@foodapp.jipqsyv.mongodb.net/MyFood?retryWrites=true&w=majority`;
+const DB_URL = process.env.DB_URL;
 
-const Connection = async () => {
+const connectToDatabase = async () => {
     try {
-        await mongoose.connect(URL, { useUnifiedTopology: true, useNewUrlParser: true });
-        console.log("Connected To Database Successfully");
+        // Connect to MongoDB using Mongoose
+        await mongoose.connect(DB_URL, { useUnifiedTopology: true, useNewUrlParser: true });
+        console.log("Connected to the database successfully");
 
-        const data = await mongoose.connection.db.collection("food_items").find({}).toArray();
-        global.food_items = data;
+        // Fetch food items from the 'food_items' collection
+        const foodItems = await mongoose.connection.db.collection("food_items").find({}).toArray();
+        global.food_items = foodItems;
 
+        // Fetch food categories from the 'foodCategory' collection
         const foodCategory = await mongoose.connection.db.collection("foodCategory").find({}).toArray();
         global.foodCategory = foodCategory;
 
-        return data;
-    }
-    catch (error) {
-        console.log("Error While Connecting to Database", error.message);
+        return foodItems;
+    } catch (error) {
+        console.error("Error while connecting to the database:", error.message);
     }
 };
 
-module.exports = Connection;
+module.exports = connectToDatabase;

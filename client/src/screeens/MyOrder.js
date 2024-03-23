@@ -1,38 +1,23 @@
-import React,{useEffect,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 
 export default function MyOrder() {
-
     const [orderData, setorderData] = useState("")
-
-    
     const fetchMyOrder = async () => {
-        console.log(localStorage.getItem('userEmail'))
         await fetch("http://localhost:8000/api/myOrderData", {
-            // credentials: 'include',
-            // Origin:"http://localhost:3000/login",
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify({
-                email:localStorage.getItem('userEmail')
+            body: JSON.stringify({
+                email: localStorage.getItem('userEmail')
             })
         }).then(async (res) => {
             let response = await res.json()
             await setorderData(response)
         })
-
-
-
-        // await res.map((data)=>{
-        //    console.log(data)
-        // })
-
-
     }
-
     useEffect(() => {
         fetchMyOrder()
     }, [])
@@ -41,11 +26,9 @@ export default function MyOrder() {
             <div>
                 <NavBar />
             </div>
-
             <div className='container'>
                 <div className='row'>
-
-                    {orderData !== {} ? Array(orderData).map(data => {
+                    {orderData != {} ? Array(orderData).map(data => {
                         return (
                             data.orderData ?
                                 data.orderData.order_data.slice(0).reverse().map((item) => {
@@ -54,11 +37,9 @@ export default function MyOrder() {
                                             return (
                                                 <div  >
                                                     {arrayData.Order_date ? <div className='m-auto mt-5'>
-
                                                         {data = arrayData.Order_date}
                                                         <hr />
                                                     </div> :
-
                                                         <div className='col-12 col-md-6 col-lg-3' >
                                                             <div className="card mt-3" style={{ width: "16rem", maxHeight: "360px" }}>
                                                                 <img src={arrayData.img} className="card-img-top" alt="..." style={{ height: "120px", objectFit: "fill" }} />
@@ -74,17 +55,11 @@ export default function MyOrder() {
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
-
-
-
                                                     }
-
                                                 </div>
                                             )
                                         })
-
                                     )
                                 }) : ""
                         )
@@ -94,8 +69,6 @@ export default function MyOrder() {
                     <Footer />
                 </div>
             </div>
-
         </>
-
     )
 }

@@ -21,8 +21,6 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/createuser" element={<SignUp />} />
           <Route exact path="/myOrder" element={<MyOrder />} />
-
-
         </Routes>
       </div>
     </Router>

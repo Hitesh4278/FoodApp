@@ -7,9 +7,9 @@ import { useCart } from './ContextReducer';
 
 export default function NavBar() {
   const [cartView, setCartView] = useState(false);
-  let data = useCart();
-
+  const data = useCart();
   const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     navigate('/login');
@@ -40,14 +40,12 @@ export default function NavBar() {
                   Home
                 </Link>
               </li>
-              {localStorage.getItem('authToken') ? (
+              {localStorage.getItem('authToken') && ( // Simplified conditional rendering
                 <li className="nav-item">
                   <Link className="nav-link active fs-5" aria-current="page" to="/myOrder">
                     MyOrder
                   </Link>
                 </li>
-              ) : (
-                ''
               )}
             </ul>
             {!localStorage.getItem('authToken') ? (
@@ -67,12 +65,11 @@ export default function NavBar() {
                     {data.length}
                   </Badge>
                 </div>
-
-                {cartView ? (
+                {cartView && (
                   <Modal onClose={() => setCartView(false)}>
                     <Cart />
                   </Modal>
-                ) : null}
+                )}
                 <div className="btn bg-white text-danger mx-2" onClick={handleLogout}>
                   LogOut
                 </div>

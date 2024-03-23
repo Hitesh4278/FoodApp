@@ -10,16 +10,16 @@ export default function Carousel() {
       >
         <div className="carousel-inner" id="carousel">
           <div className="carousel-caption" style={{ zIndex: "10" }}>
-            <form class="d-flex">
+            <form className="d-flex">
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
-                style={{ height: "2rem" }} // add this line to adjust the height
+                style={{ height: "2rem" }}
               />
               <button
-                class="btn btn-outline-success text-white bg-danger"
+                className="btn btn-outline-success text-white bg-danger"
                 type="submit"
               >
                 Search
@@ -28,26 +28,29 @@ export default function Carousel() {
           </div>
           <div className="carousel-item active">
             <img
-              src="https://source.unsplash.com/random/900*300/?burger"
+              src="https://source.unsplash.com/random/900x300/?burger"
               className="d-block w-100"
               alt="..."
-              width="500" // add this line to set the width to 500 pixels
+              width="500"
+              height="300"
             />
           </div>
           <div className="carousel-item">
             <img
-              src="https://source.unsplash.com/random/900*700/?pizza"
+              src="https://source.unsplash.com/random/900x700/?pizza"
               className="d-block w-100"
               alt="..."
-              width="500" // add this line to set the width to 500 pixels
+              width="500"
+              height="700"
             />
           </div>
           <div className="carousel-item">
             <img
-              src="https://source.unsplash.com/random/900*700/?momos"
+              src="https://source.unsplash.com/random/900x700/?momos"
               className="d-block w-100"
               alt="..."
-              width="500" // add this line to set the width to 500 pixels
+              width="500"
+              height="700"
             />
           </div>
         </div>

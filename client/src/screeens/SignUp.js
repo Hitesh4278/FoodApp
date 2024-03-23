@@ -17,14 +17,18 @@ export default function SignUp() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name: credentials.name, email: credentials.email, password: credentials.password, location: credentials.geolocation }),
+      body: JSON.stringify({
+        name: credentials.name,
+        email: credentials.email,
+        password: credentials.password,
+        location: credentials.geolocation,
+      }),
     });
 
-    const json = await response.json();
-    console.log(json);
-
-    if (!json.success) {
-      alert("Enter Valid Credentials")
+    if (response.ok) {
+      alert("Signup Successful");
+    } else {
+      alert("Signup failed. Please enter valid credentials.");
     }
   };
 
@@ -35,8 +39,8 @@ export default function SignUp() {
   return (
     <>
       <NavBar />
-      <div className='container d-flex justify-content-center align-items-center'>
-        <form onSubmit={handleSubmit} >
+      <div className="container d-flex justify-content-center align-items-center">
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
             <input
@@ -102,7 +106,6 @@ export default function SignUp() {
               Already a User?
             </Link>
           </div>
-
         </form>
       </div>
     </>
