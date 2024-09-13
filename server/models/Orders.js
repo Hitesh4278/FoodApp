@@ -11,6 +11,10 @@ const OrderSchema = new Schema({
         type: Array,
         required: true,
     },
+    transactionId: {
+        type: String,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model('order', OrderSchema)

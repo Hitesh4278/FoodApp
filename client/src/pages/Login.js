@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import '../css/login.css';  // Import the CSS file
 
 export default function Login() {
   const [credentials, setCredentials] = useState({
@@ -12,7 +13,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:8000/api/loginuser', {
+    const response = await fetch(process.env.REACT_APP_BACKEND_URL + 'loginuser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -40,44 +41,35 @@ export default function Login() {
   return (
     <div>
       <NavBar />
-      <div className='container d-flex justify-content-center align-items-center'>
-        <form
-          onSubmit={handleSubmit}
-          style={{ maxWidth: '400px', width: '100%' }}
-        >
-          <div className='form-group'>
-            <label htmlFor='email'>Email address</label>
+      <div className="login-container">
+        <h2 className="login-title">Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email" className="label">Email address</label>
             <input
-              type='email'
-              className='form-control'
-              id='email'
-              name='email'
+              type="email"
+              id="email"
+              name="email"
+              className="input"
               value={credentials.email}
               onChange={handleChange}
-              placeholder='Enter email'
+              placeholder="Enter email"
             />
-            <small id='emailHelp' className='form-text text-muted'>
-              We'll never share your email with anyone else.
-            </small>
           </div>
-          <div className='form-group'>
-            <label htmlFor='password'>Password</label>
+          <div className="form-group">
+            <label htmlFor="password" className="label">Password</label>
             <input
-              type='password'
-              className='form-control'
-              id='password'
-              name='password'
+              type="password"
+              id="password"
+              name="password"
+              className="input"
               value={credentials.password}
               onChange={handleChange}
-              placeholder='Password'
+              placeholder="Password"
             />
           </div>
-          <button type='submit' className='btn btn-danger'>
-            Submit
-          </button>
-          <Link to='/createuser' className='btn btn-danger mx-2'>
-            New User? Create an account
-          </Link>
+          <button type="submit" className="login-btn">Submit</button>
+          <Link to="/createuser" className="login-link">New User? Create an account</Link>
         </form>
       </div>
     </div>

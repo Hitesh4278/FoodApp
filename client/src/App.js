@@ -5,11 +5,11 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 
 
-import Home from "./screeens/Home";
-import Login from "./screeens/Login";
-import SignUp from "./screeens/SignUp";
-import { CartProvider } from "./components/ContextReducer";
-import MyOrder from "./screeens/MyOrder";
+import Home from "./pages/Home.js";
+import Login from "./pages/Login.js";
+import SignUp from "./pages/SignUp.js";
+import { CartProvider } from "./contextReducer/ContextReducer";
+import MyOrder from "./pages/MyOrder.js";
 
 function App() {
   return (

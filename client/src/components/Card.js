@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatchCart, useCart } from './ContextReducer';
+import { useDispatchCart, useCart } from '../contextReducer/ContextReducer';
+import '../css/card.css'; // Importing the CSS file
 
 export default function Card(props) {
     const dispatch = useDispatchCart();
@@ -31,30 +32,30 @@ export default function Card(props) {
     }, []);
 
     return (
-        <div>
-            <div class="card mt-3 " style={{ width: "18rem", maxHeight: "360px" }}>
-                <img src={props.foodItem.img} class="card-img-top" alt="..." style={{ height: "120px", objectFit: "fill" }} />
-                <div class="card-body">
-                    <h5 class="card-title">{props.foodItem.name}</h5>
-                    <div className="container w-100">
-                        <select className=" m-2 h-100 bg-danger rounded" onChange={(e) => setQty(e.target.value)}>
+        <div className="card-container">
+            <div className="card">
+                <img src={props.foodItem.img} alt="Food Item" className="card-img" />
+                <div className="card-body">
+                    <h5 className="card-title">{props.foodItem.name}</h5>
+                    <div className="card-options">
+                        <select className="card-select" onChange={(e) => setQty(e.target.value)}>
                             {Array.from(Array(6), (e, i) => (
                                 <option key={i + 1} value={i + 1}>
                                     {i + 1}
                                 </option>
                             ))}
                         </select>
-                        <select className=" m-2 h-100 bg-danger rounded" ref={priceRef} onChange={(e) => setSize(e.target.value)}>
+                        <select className="card-select" ref={priceRef} onChange={(e) => setSize(e.target.value)}>
                             {priceOptions.map(data => (
                                 <option key={data} value={data}>{data}</option>
                             ))}
                         </select>
-                        <div className="d-inline h-100 fs-5">
-                            ₹{finalPrice}/-
+                        <div className="card-price">
+                            ₹{finalPrice}
                         </div>
                     </div>
                     <hr />
-                    <div className='btn bg-danger text-white mx-2' onClick={handleAddToCart}>AddToCart</div>
+                    <button className="card-btn" onClick={handleAddToCart}>Add to Cart</button>
                 </div>
             </div>
         </div>

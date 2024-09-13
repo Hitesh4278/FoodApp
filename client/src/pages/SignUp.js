@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import "../css/signup.css"; // Import the CSS file
 
 export default function SignUp() {
   const [credentials, setCredentials] = useState({
@@ -12,7 +13,7 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:8000/api/createuser", {
+    const response = await fetch(process.env.REACT_APP_BACKEND_URL + "createuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,72 +40,67 @@ export default function SignUp() {
   return (
     <>
       <NavBar />
-      <div className="container d-flex justify-content-center align-items-center">
-        <form onSubmit={handleSubmit}>
+      <div className="signup-container">
+        <form className="signup-form" onSubmit={handleSubmit}>
+          <h2 className="form-title">Sign Up</h2>
           <div className="form-group">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name" className="form-label">Name</label>
             <input
               type="text"
-              className="form-control"
               name="name"
               placeholder="Enter Your Name"
               value={credentials.name}
               onChange={onChange}
-              style={{ width: "400px" }}
+              className="form-input"
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="exampleInputEmail1">Email address</label>
+            <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
             <input
               type="email"
-              className="form-control"
               name="email"
               value={credentials.email}
               onChange={onChange}
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="Enter email"
-              style={{ width: "400px" }}
+              className="form-input"
             />
-            <small id="emailHelp" className="form-text text-muted">
+            <small id="emailHelp" className="form-help">
               We'll never share your email with anyone else.
             </small>
           </div>
+
           <div className="form-group">
-            <label htmlFor="exampleInputPassword1">Password</label>
+            <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
             <input
               type="password"
-              className="form-control"
               id="exampleInputPassword1"
               placeholder="Password"
               name="password"
               value={credentials.password}
               onChange={onChange}
-              style={{ width: "400px" }}
+              className="form-input"
             />
           </div>
-          <div className="form-group" style={{ marginBottom: "10px" }}>
-            <label htmlFor="exampleInputAddress">Address</label>
+
+          <div className="form-group">
+            <label htmlFor="exampleInputAddress" className="form-label">Address</label>
             <input
               type="text"
-              className="form-control"
               id="exampleInputAddress"
               placeholder="Address"
               name="geolocation"
               value={credentials.geolocation}
               onChange={onChange}
-              style={{ width: "400px" }}
+              className="form-input"
             />
           </div>
 
-          <div className="d-flex justify-content-start align-items-center" style={{ marginTop: "15px" }}>
-            <button type="submit" className="btn btn-danger">
-              Submit
-            </button>
-            <Link to="/login" className="btn btn-danger" style={{ marginLeft: "10px" }}>
-              Already a User?
-            </Link>
+          <div className="form-actions">
+            <button type="submit" className="submit-button">Submit</button>
+            <Link to="/login" className="login-link">Already a User?</Link>
           </div>
         </form>
       </div>

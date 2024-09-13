@@ -1,0 +1,116 @@
+/* General Styles for the Card */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding: 10px;
+}
+
+.card {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #282c34;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+    gap: 10px;
+}
+
+.card-select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 48%;
+    text-align: center;
+    appearance: auto; 
+}
+
+.card-options select{
+    width: auto;
+}
+.card-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2d8a1e;
+    min-width: 50px; /* Ensure space for the price */
+    text-align: right; /* Align price to the right */
+}
+
+.card-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Make button full width */
+}
+
+.card-btn:hover {
+    background-color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        max-width: 100%;
+    }
+
+    .card-options {
+        flex-direction: column;
+    }
+
+    .card-select {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-body {
+        padding: 10px;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .card-price {
+        font-size: 1rem;
+    }
+}

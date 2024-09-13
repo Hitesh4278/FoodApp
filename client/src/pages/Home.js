@@ -11,7 +11,7 @@ export default function Home() {
 
   const loadData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/foodData", {
+      const response = await fetch(process.env.REACT_APP_BACKEND_URL + "foodData", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,32 +36,17 @@ export default function Home() {
   return (
     <div>
       <NavBar />
-      <div className="carousel-container">
-        <div className="carousel slide" data-bs-ride="carousel">
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              <img
-                src="https://source.unsplash.com/random/500*500/?burger"
-                className="d-block w-100"
-                alt="Burger"
-              />
-              <div className="carousel-caption">
-                <div className="d-flex justify-content-center">
-                  <input
-                    className="form-control me-2"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                    value={search}
-                    onChange={handleSearchChange}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className="container mt-3">
+        <div className="d-flex justify-content-center mb-4">
+          <input
+            className="form-control w-50"
+            type="search"
+            placeholder="Search for food"
+            aria-label="Search"
+            value={search}
+            onChange={handleSearchChange}
+          />
+        </div>
         {foodCat.map((category) => (
           <div key={category._id}>
             <div className="fs-3 m-3">{category.CategoryName}</div>
@@ -71,7 +56,7 @@ export default function Home() {
                 .filter((item) => (
                   item.CategoryName === category.CategoryName &&
                   item.name.toLowerCase().includes(search.toLowerCase())
-                )) 
+                ))
                 .map((filteredItem) => (
                   <div key={filteredItem._id} className="col">
                     <Card foodItem={filteredItem} options={filteredItem.options[0]} />

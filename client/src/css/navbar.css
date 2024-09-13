@@ -1,0 +1,170 @@
+.navbar-container {
+  width: 100%;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ff6347; 
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar-toggle {
+  display: none; 
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-menu li {
+  display: inline;
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 15px;
+}
+
+.navbar-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+.auth-links, .auth-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.auth-link {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  background-color: #ff4500;
+  border-radius: 5px;
+}
+
+.auth-link:hover {
+  background-color: #ff6347;
+}
+
+.cart, .logout {
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: #ff4500;
+  border-radius: 5px;
+  color: white;
+}
+
+.cart:hover, .logout:hover {
+  background-color: #ff6347;
+}
+
+/* The Modal (background) */
+.modal {
+  display: block; 
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+/* Modal Content Box */
+.modal-content {
+  background-color: #333;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px; 
+  border-radius: 10px;
+  position: relative;
+}
+
+/* Close button (x) */
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar-menu {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .navbar-links {
+    flex-direction: column; 
+    width: 100%;
+  }
+
+  .auth-links, .auth-controls {
+    flex-direction: column;
+    width: 100%;
+    align-items: center; 
+    gap: 10px;
+  }
+
+  .navbar-menu li {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .cart, .logout {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand {
+    font-size: 20px;
+  }
+
+  .auth-link, .cart, .logout {
+    font-size: 14px; 
+  }
+
+  .navbar-link {
+    font-size: 16px;
+  }
+}
