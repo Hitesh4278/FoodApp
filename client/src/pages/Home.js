@@ -14,7 +14,7 @@ export default function Home() {
       const response = await fetch(process.env.REACT_APP_BACKEND_URL + "foodData", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",withCredentials:true,
         },
       });
       const data = await response.json();
